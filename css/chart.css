@@ -1,5 +1,5 @@
-.chart-container {
-    position: relative; 
+/*.chart-container {
+    position: relative;
     margin: auto; 
     padding: 10px;
     width: 700px;
@@ -38,4 +38,10 @@
         width: 275px;
         height: 150px;
     }
+}*/
+.chart-container {
+    position: relative;
+    max-width: 65vw;
+    height: 75vh;
+    margin: auto;
 }

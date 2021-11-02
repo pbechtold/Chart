@@ -17,26 +17,30 @@ for (let i = 0; i< divClass.length; i++) {
     valueDiv = div[i].div_value.children;
     colorDiv = div[i].div_color.children;
     percDiv = div[i].div_percent.children;
-    chartDataSet = {label:[],data:[],backgroundColor: [],borderColor: [],borderWidth: 1};
+    chartDataSet = {label:[], data:[], backgroundColor: [], borderColor: [], borderWidth: 1};
     chartLabels = {labels:[]};
 
+    // chDataFormat 
     if (chDataFormat === "2") {
         for (let k = 0; k<keyDiv.length; k++) {
             chartDataSet.data[k] = percDiv[k].value;
         }
         symbol = function(value) {
-                    return value + ' %';
-                };
+            return value + ' %';
+        };
     } else {
-        for (let k = 0; k<keyDiv.length; k++) {
-            chartDataSet.data[k] = valueDiv[k].value;
+        for (let k = 0; k < keyDiv.length; k++) {
+            let parseVal = [];
+            parseVal[k] = parseFloat(valueDiv[k].value);
+            chartDataSet.data[k] = parseVal[k];
         }
-        symbol = function(value) {
-                    return chCurrencySymbol+ ' ' + value;
-                };
+        symbol = function (value) {
+            let parseVal = parseFloat(value);
+            return parseVal.toLocaleString() + ' ' + chCurrencySymbol;
+        };
     }
 
-    for (let k = 0; k<keyDiv.length; k++) {
+    for (let k = 0; k < keyDiv.length; k++) {
         chartLabels.labels[k] = keyDiv[k].value;
     }
 
@@ -65,7 +69,7 @@ for (let i = 0; i< divClass.length; i++) {
             }
         },
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         legend: {
             display: true,
             labels:{
@@ -104,14 +108,14 @@ for (let i = 0; i< divClass.length; i++) {
             },
             scales: {
                 xAxes: [{
-                stacked: true
+                    stacked: true
                 }],
                 yAxes: [{
-                stacked: true
+                    stacked: false
                 }]
             },
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             legend: {
                 display: false
             },
@@ -123,9 +127,11 @@ for (let i = 0; i< divClass.length; i++) {
           };
 
     canVas = document.getElementById(chId).getContext('2d');
+    console.log(symbol.value);
+
 
     if (type === 'pie') {
-    chDataTable = {
+        chDataTable = {
             type: type,
             data: {
                 labels: chartLabels.labels,
@@ -147,11 +153,16 @@ for (let i = 0; i< divClass.length; i++) {
             data: {
                 labels: chartLabels.labels,
                 datasets: [{
+                    // inline label/key
                     label: chartDataSet.label,
+                    // inline data/value
                     data: chartDataSet.data,
                     backgroundColor: chartDataSet.backgroundColor,
                     borderColor: '#000000',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                    barThickness: 24,
+                    minBarLength: 10
                 }]
             },
             options: optionsBar
