@@ -13,14 +13,23 @@ for (let i = 0; i< divClass.length; i++) {
     chId = div[i].chart_id.value;
     chDataFormat = div[i].chart_data_format.value;
     chCurrencySymbol = div[i].chart_currency_symbol.value;
+
+    // Key (1)
     keyDiv = div[i].div_key.children;
+    // value (n<5)
     valueDiv = div[i].div_value.children;
     colorDiv = div[i].div_color.children;
     percDiv = div[i].div_percent.children;
-    chartDataSet = {label:[], data:[], backgroundColor: [], borderColor: [], borderWidth: 1};
+
+    /**
+     * @todo multi Datasets
+     */
+    chartDataSet = {label:[], data:[], backgroundColor: [], borderColor: []};
+
+    // key1
     chartLabels = {labels:[]};
 
-    // chDataFormat 
+    // Percent(2)/Currency
     if (chDataFormat === "2") {
         for (let k = 0; k<keyDiv.length; k++) {
             chartDataSet.data[k] = percDiv[k].value;
@@ -83,7 +92,6 @@ for (let i = 0; i< divClass.length; i++) {
             text: title
         }
     };
-
     optionsBar = {
             plugins: {
               datalabels: {
@@ -95,7 +103,7 @@ for (let i = 0; i< divClass.length; i++) {
                 borderWidth: 0.5,
                 color: '#000000',
                 font: {
-                  size: 13,
+                  size: 12,
                   weight: 600
                 },
                 offset: 1,
@@ -108,7 +116,7 @@ for (let i = 0; i< divClass.length; i++) {
             },
             scales: {
                 xAxes: [{
-                    stacked: true
+                    stacked: false
                 }],
                 yAxes: [{
                     stacked: false
@@ -117,7 +125,12 @@ for (let i = 0; i< divClass.length; i++) {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
-                display: false
+                display: true,
+                labels:{
+                    boxWidth: 5,
+                    usePointStyle: true,
+                    boxHeight: 1
+                }
             },
             title: {
                 display: true,
@@ -127,9 +140,12 @@ for (let i = 0; i< divClass.length; i++) {
           };
 
     canVas = document.getElementById(chId).getContext('2d');
-    console.log(symbol.value);
 
-
+    /**
+     * @todo create diff datasets
+     * @todo only pie backgroundColor: chartDataSet.backgroundColor !!!!
+     * 
+     */
     if (type === 'pie') {
         chDataTable = {
             type: type,
@@ -141,28 +157,53 @@ for (let i = 0; i< divClass.length; i++) {
                     backgroundColor: chartDataSet.backgroundColor,
                     borderColor: '#000000',
                     borderWidth: 1
-                }]
+                },
+            {
+                label: chartDataSet.label,
+                    data: chartDataSet.data,
+                    backgroundColor: chartDataSet.backgroundColor,
+                    borderColor: '#000000',
+                    borderWidth: 1
+            }]
             },
             options: optionsPie
         };
 
         thisChart = new Chart(canVas, chDataTable);
-    } else {
+    }else {
         chDataTable = {
             type: type,
             data: {
                 labels: chartLabels.labels,
                 datasets: [{
-                    // inline label/key
-                    label: chartDataSet.label,
-                    // inline data/value
+                    label: "Dataset 1",
                     data: chartDataSet.data,
-                    backgroundColor: chartDataSet.backgroundColor,
+                    backgroundColor: "blue",
                     borderColor: '#000000',
                     borderWidth: 1,
-                    barPercentage: 0.5,
-                    barThickness: 24,
-                    minBarLength: 10
+                    barPercentage: 0.8,
+                    //barThickness: 24,
+                    minBarLength: 25
+                },
+                {
+                    label: "Dataset 2",
+                    data: chartDataSet.data,
+                    backgroundColor: "red",
+                    borderColor: '#000000',
+                    borderWidth: 1,
+                    barPercentage: 0.8,
+                    //barThickness: 24,
+                    minBarLength: 25
+                },
+                {
+                    label: "Dataset 3",
+                    data: chartDataSet.data,
+                    backgroundColor: "green",
+                    borderColor: '#000000',
+                    borderWidth: 1,
+                    barPercentage: 0.8,
+                    //barThickness: 24,
+                    minBarLength: 25
                 }]
             },
             options: optionsBar

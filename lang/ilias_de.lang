@@ -2,14 +2,18 @@ insert_chart#:#Diagramm einfügen
 cmd_insert#:#Diagramm einfügen
 chart#:#Diagramm
 chart_style#:#Style
+chart_dataset#:#Dataset
 categories#:#Kategorien
 description#:#Geben Sie den Diagrammtitel, den Diagrammtyp und das Datenformat ein. Nach dem Einfügen haben Sie die Möglichkeit, Farben auszuwählen und das Währungsymbol auszufüllen.
 description_style#:#Sie können die Farben der Balken in HEX Farben definieren zB CA3E3E
+description_style#:#Fügen Sie Datensätze ein
 edit_chart#:#Diagramm Bearbeiten
 edit_style#:#Style Bearbeiten
+edit_ds#:#Dataset Bearbeiten
 horizontal_bar_chart#:#Balkendiagramm
 vertical_bar_chart#:#Säulendiagramm
 pie_chart#:#Tortendiagramm
+line_chart#:#line_chart
 chart_title#:#Diagrammtitel
 chart_type#:#Diagrammtyp
 key#:#Kategorie
