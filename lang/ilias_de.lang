@@ -13,7 +13,7 @@ edit_ds#:#Dataset Bearbeiten
 horizontal_bar_chart#:#Balkendiagramm
 vertical_bar_chart#:#Säulendiagramm
 pie_chart#:#Tortendiagramm
-line_chart#:#line_chart
+line_chart#:#Liniendiagramm
 chart_title#:#Diagrammtitel
 chart_type#:#Diagrammtyp
 key#:#Kategorie
@@ -23,3 +23,5 @@ percent#:#Prozent
 data_format#:#Datenformat
 currency_symbol#:#Währungssymbol
 categories_info#:#Sollten Sie als Datenformat "Prozent" ausgewählt haben, wird die Berechnung der Werte in Prozent ausgegeben.
+dataset#:#Dataset
+dataset_info#:#Bitte geben Sie die Werte der ...

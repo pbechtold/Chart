@@ -4,7 +4,7 @@ var j = 1;
 
 for (let i = 0; i< divClass.length; i++) {
     
-    let title, type, chId, chDataFormat, chCurrencySymbol, keyDiv, valueDiv, colorDiv, percDiv, chartDataSet, chartLabels, canVas, chDataTable, thisChart, optionsPie, optionsBar, symbol;
+    let title, type, chId, chDataFormat, chCurrencySymbol, keyDiv, valueDiv, colorDiv, percDiv, chartDataSet, chartLabels, canVas, chDataTable, thisChart, optionsPie, optionsBar, optionsLine, symbol;
 
     div[i] = document.getElementById('chart_div_'+j).children;
     
@@ -93,51 +93,97 @@ for (let i = 0; i< divClass.length; i++) {
         }
     };
     optionsBar = {
-            plugins: {
-              datalabels: {
-                align: 'start',
-                anchor: 'end',
-                backgroundColor: '#ffffff',
-                borderColor: '#000000',
-                borderRadius: 1,
-                borderWidth: 0.5,
-                color: '#000000',
-                font: {
-                  size: 12,
-                  weight: 600
-                },
-                offset: 1,
-                padding: 2,
-                clamp: true,
-                clip: true,
-                display: 'auto',
-                formatter: symbol
-              }
+        plugins: {
+            datalabels: {
+            align: 'start',
+            anchor: 'end',
+            backgroundColor: '#ffffff',
+            borderColor: '#000000',
+            borderRadius: 1,
+            borderWidth: 0.5,
+            color: '#000000',
+            font: {
+                size: 12,
+                weight: 600
             },
-            scales: {
-                xAxes: [{
-                    stacked: false
-                }],
-                yAxes: [{
-                    stacked: false
-                }]
+            offset: 1,
+            padding: 2,
+            clamp: true,
+            clip: true,
+            display: 'auto',
+            formatter: symbol
+            }
+        },
+        scales: {
+            xAxes: [{
+                stacked: false
+            }],
+            yAxes: [{
+                stacked: false
+            }]
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            display: true,
+            labels:{
+                boxWidth: 5,
+                usePointStyle: true,
+                boxHeight: 1
+            }
+        },
+        title: {
+            display: true,
+            text: title
+        },
+        tooltip: false
+    };
+    optionsLine = {
+        plugins: {
+            datalabels: {
+            align: 'start',
+            anchor: 'end',
+            backgroundColor: '#ffffff',
+            borderColor: '#000000',
+            borderRadius: 1,
+            borderWidth: 0.5,
+            color: '#000000',
+            font: {
+                size: 12,
+                weight: 600
             },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                labels:{
-                    boxWidth: 5,
-                    usePointStyle: true,
-                    boxHeight: 1
-                }
-            },
-            title: {
-                display: true,
-                text: title
-            },
-            tooltip: false
-          };
+            offset: 1,
+            padding: 2,
+            clamp: true,
+            clip: true,
+            display: 'auto',
+            formatter: symbol
+            }
+        },
+        // scales: {
+        //     xAxes: [{
+        //         stacked: false
+        //     }],
+        //     yAxes: [{
+        //         stacked: false
+        //     }]
+        // },
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            display: true,
+            labels:{
+                boxWidth: 5,
+                usePointStyle: true,
+                boxHeight: 1
+            }
+        },
+        title: {
+            display: true,
+            text: title
+        },
+        tooltip: false
+    };
 
     canVas = document.getElementById(chId).getContext('2d');
 
@@ -156,17 +202,51 @@ for (let i = 0; i< divClass.length; i++) {
                     data: chartDataSet.data,
                     backgroundColor: chartDataSet.backgroundColor,
                     borderColor: '#000000',
-                    borderWidth: 1
+                    borderWidth: 2
                 },
             {
                 label: chartDataSet.label,
                     data: chartDataSet.data,
                     backgroundColor: chartDataSet.backgroundColor,
                     borderColor: '#000000',
-                    borderWidth: 1
+                    borderWidth: 2
             }]
             },
             options: optionsPie
+        };
+
+        thisChart = new Chart(canVas, chDataTable);
+    }else if (type === 'line'){
+        chDataTable = {
+            type: type,
+            data: {
+                labels: chartLabels.labels,
+                datasets: [{
+                    label: "Dataset 1",
+                    data: chartDataSet.data,
+                    backgroundColor: "blue",
+                    borderColor: 'blue',
+                    fill: false,
+                    tension: 0.0,
+                },
+                {
+                    label: "Dataset 2",
+                    data: chartDataSet.data,
+                    backgroundColor: "red",
+                    borderColor: 'red',
+                    fill: false,
+                    tension: 0.4,
+                },
+                {
+                    label: "Dataset 3",
+                    data: chartDataSet.data,
+                    backgroundColor: "green",
+                    borderColor: 'green',
+                    fill: false,
+                    tension: 0.0,
+                }]
+            },
+            options: optionsLine
         };
 
         thisChart = new Chart(canVas, chDataTable);
